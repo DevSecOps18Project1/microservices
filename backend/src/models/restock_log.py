@@ -1,0 +1,38 @@
+"""
+SQLAlchemy model for RestockLog entity
+"""
+import logging
+from datetime import datetime
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+# Assuming db_session from database.py as per user's model_base.py
+from db.database import db_session, Base # Assuming Base and db_session from database.py
+from models.model_base import BaseModel
+
+LOG = logging.getLogger(__name__)
+
+class RestockLog(BaseModel, Base):
+    """RestockLog model."""
+
+    __tablename__ = 'restock_logs'
+
+    id = Column(Integer, primary_key=True)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    reason = Column(Text, nullable=True)
+    restocked_at = Column(DateTime, default=datetime.utcnow)
+
+    def __init__(self, data: dict):
+        super().__init__('')
+        self.product_id = data.get('product_id')
+        self.quantity = data.get('quantity')
+        self.reason = data.get('reason')
+
+    def to_dict(self):
+        """Convert restock log to dictionary."""
+        return {
+            'id': self.id,
+            'product_id': self.product_id,
+            'quantity': self.quantity,
+            'reason': self.reason,
+            'restocked_at': self.restocked_at.isoformat() if self.restocked_at else None
+        }
