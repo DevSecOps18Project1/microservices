@@ -53,7 +53,7 @@ def product_create(body: dict):
         return product.to_dict()
 
     LOG.error('Failed to create product with SKU %s due to unknown reason.', product.sku)
-    raise exceptions.InternalServerError(message="Failed to create product.")
+    raise exceptions.InternalServerError(message='Failed to create product.')
 
 
 @tools.expected_errors(400, 404, 409)
@@ -75,7 +75,7 @@ def product_update(product_id: int, body: dict):
         return product.to_dict()
 
     LOG.error('Failed to update product %s due to unknown reason.', product_id)
-    raise exceptions.InternalServerError(message="Failed to update product.")
+    raise exceptions.InternalServerError(message='Failed to update product.')
 
 
 @tools.normal_response(204)

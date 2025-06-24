@@ -1,7 +1,7 @@
 """
 SQLAlchemy models for the Product Service API
 """
-from sqlalchemy import Column, String, Text, Integer, Double, DateTime
+from sqlalchemy import Column, String, Text, Integer, Double
 from db.database import Base
 
 from models.model_base import BaseModel

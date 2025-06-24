@@ -2,12 +2,10 @@
 Restocking Operations controller functions for the Inventory Management API
 """
 import logging
-from connexion import NoContent
 import exceptions
 from controllers import tools
 from models.product import Product  # Import Product model
 from models.restock_log import RestockLog  # Import RestockLog model
-from datetime import datetime
 
 LOG = logging.getLogger(__name__)
 
@@ -26,7 +24,6 @@ def _get_product_by_id_for_restock(id_: int):
 def product_restock(product_id: int, body: dict):
     """Restock a specific product."""
     quantity = body.get('quantity')
-    reason = body.get('reason')
 
     product = _get_product_by_id_for_restock(product_id)
 
