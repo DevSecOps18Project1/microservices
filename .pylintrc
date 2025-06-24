@@ -1,0 +1,17 @@
+[MASTER]
+ignore=CVS, .git, .hg, .svn, .bzr, _trial_temp, __pycache__, venv
+
+[MESSAGES CONTROL]
+disable=
+    C0114,  # missing-module-docstring
+    C0115,  # missing-class-docstring
+    C0116,  # missing-function-docstring
+    R0903,  # too-few-public-methods
+    W0613,  # unused-argument
+    W1203,  # logging-fstring-interpolation
+
+enable=
+    W0614, # unused-wildcard-import
+
+[FORMAT]
+max-line-length=120
