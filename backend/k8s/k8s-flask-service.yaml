@@ -1,0 +1,15 @@
+# k8s-flask-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-service
+spec:
+  selector:
+    app: flask-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8085
+      nodePort: 30085
+  type: NodePort
+
