@@ -5,7 +5,7 @@ info:
   description: API for managing product inventory, restocking, and analytics.
 
 paths:
-  /:
+  /health:
     get:
       operationId: controllers.general.health_status
       summary: Health status
@@ -25,8 +25,8 @@ paths:
       summary: Get a list of all products with stock levels
       tags:
         - Inventory Management
-#      security: # ADDED security for this endpoint
-#        - basicAuth: [ ]
+      #      security: # ADDED security for this endpoint
+      #        - basicAuth: [ ]
       responses:
         '200':
           description: List of products retrieved successfully
@@ -363,21 +363,21 @@ paths:
 
 
 components:
-#  securitySchemes: # Added security schemes
-#    basicAuth:
-#      type: http
-#      scheme: basic
-#      x-basicInfoFunc: 'security.password_validation.validate_password'
-#    oAuth2Implicit:
-#      type: oauth2
-#      flows:
-#        implicit:
-#          authorizationUrl: "https://example.com/oauth/authorize" # Replace with your auth URL
-#          scopes:
-#            read: Grants read access
-#            write: Grants write access
-#            admin: Grants admin access
-#      x-tokenInfoFunc: 'security.token_validator.validate_oauth2_token'
+  #  securitySchemes: # Added security schemes
+  #    basicAuth:
+  #      type: http
+  #      scheme: basic
+  #      x-basicInfoFunc: 'security.password_validation.validate_password'
+  #    oAuth2Implicit:
+  #      type: oauth2
+  #      flows:
+  #        implicit:
+  #          authorizationUrl: "https://example.com/oauth/authorize" # Replace with your auth URL
+  #          scopes:
+  #            read: Grants read access
+  #            write: Grants write access
+  #            admin: Grants admin access
+  #      x-tokenInfoFunc: 'security.token_validator.validate_oauth2_token'
   schemas:
     HealthResponse:
       type: object
