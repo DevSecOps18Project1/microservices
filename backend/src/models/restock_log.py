@@ -3,9 +3,9 @@ SQLAlchemy model for RestockLog entity
 """
 import logging
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, Text, DateTime, ForeignKey
 # Assuming db_session from database.py as per user's model_base.py
-from db.database import db_session, Base # Assuming Base and db_session from database.py
+from db.database import Base
 from models.model_base import BaseModel
 
 LOG = logging.getLogger(__name__)

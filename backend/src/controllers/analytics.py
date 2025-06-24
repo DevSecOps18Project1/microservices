@@ -2,12 +2,13 @@
 Analytics controller functions for the Inventory Management API
 """
 import logging
+import random
+from datetime import datetime, timedelta
+
 from controllers import tools
 import exceptions
 from models.product import Product  # Import Product model
-from models.restock_log import RestockLog
-from datetime import datetime, timedelta
-import random
+# from models.restock_log import RestockLog
 
 LOG = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ def get_stock_trend_data():
         LOG.info('No products available to generate trend data.')
         return []
 
-    restock_logs = RestockLog.get_all()
+    # restock_logs = RestockLog.get_all()
 
     # In a real system, this would query historical stock levels
     # or process movement logs to generate trend data.

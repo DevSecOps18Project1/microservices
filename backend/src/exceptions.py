@@ -73,13 +73,8 @@ class Conflict(MyBaseException):
     code = 409
 
 
-class InvalidJsonScheme(BadRequest):
-    msg_fmt = '%(scheme_error)s'
-
-
-class InvalidInput(BadRequest):
-    msg_fmt = '%(input_error)s'
-
+class InternalServerError(MyBaseException):
+    pass
 
 # Specific exceptions
 
@@ -89,24 +84,6 @@ class UserNotFound(ItemNotFound):
 
 class UserEmailAlreadyExist(BadRequest):
     msg_fmt = 'User with email %(email)s already exists.'
-
-
-# Specific exceptions (new for Multi-Tenant Warehouse)
-
-class TenantNotFound(ItemNotFound):
-    msg_fmt = 'Tenant %(tenant_id)s could not be found.'
-
-
-class TenantNameAlreadyExist(Conflict):
-    msg_fmt = 'Tenant with name %(name)s already exists.'
-
-
-class WarehouseNotFound(ItemNotFound):
-    msg_fmt = 'Warehouse %(warehouse_id)s could not be found.'
-
-
-class WarehouseNameAlreadyExist(Conflict):
-    msg_fmt = 'Warehouse with name %(name)s already exists for tenant %(tenant_id)s.'
 
 
 class ProductNotFound(ItemNotFound):
@@ -123,53 +100,3 @@ class RestockLogInvalidQuantity(BadRequest):
 
 class AnalyticsInvalidThreshold(BadRequest):
     msg_fmt = 'Invalid low stock threshold %(threshold)i. Threshold must be a not negative integer.'
-
-
-# ====
-
-class WarehousePermissionNotFound(ItemNotFound):
-    msg_fmt = 'Warehouse permission %(permission_id)s could not be found.'
-
-
-class WarehousePermissionAlreadyExist(Conflict):
-    msg_fmt = 'Permission for user %(user_id)s to warehouse %(warehouse_id)s already exists.'
-
-
-class InvalidRole(BadRequest):
-    msg_fmt = 'Invalid role: %(role)s.'
-
-
-class TenantUserMismatch(BadRequest):
-    msg_fmt = 'User %(user_id)s does not belong to tenant %(tenant_id)s.'
-
-
-class CrossTenantOperationForbidden(Forbidden):
-    msg_fmt = 'Operation across tenants is forbidden.'
-
-
-class SystemAdminTenantAssociationForbidden(BadRequest):
-    msg_fmt = 'System admin users cannot be associated with a tenant.'
-
-
-class RegularUserCannotCreateUsers(Forbidden):
-    msg_fmt = 'Regular users cannot create new users.'
-
-
-class TenantAdminCannotCreateSystemAdmins(Forbidden):
-    msg_fmt = 'Tenant administrators cannot create system administrators.'
-
-
-class TenantAdminCannotManageOtherTenants(Forbidden):
-    msg_fmt = 'Tenant administrator cannot manage resources of other tenants.'
-
-
-class UserNotRegular(BadRequest):
-    msg_fmt = 'Permissions can only be assigned to regular users.'
-
-
-class CannotAssignPermissionToSystemAdmin(BadRequest):
-    msg_fmt = 'Cannot assign warehouse permissions to system administrators.'
-
-
-class PermissionTenantMismatch(BadRequest):
-    msg_fmt = 'Permission tenant ID mismatch with user or warehouse tenant ID.'
