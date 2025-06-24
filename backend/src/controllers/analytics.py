@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from controllers import tools
 import exceptions
 from models.product import Product  # Import Product model
-# from models.restock_log import RestockLog
+from models.restock_log import RestockLog
 
 LOG = logging.getLogger(__name__)
 
