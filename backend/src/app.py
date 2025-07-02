@@ -7,7 +7,7 @@ import logging
 import logging.config
 import connexion
 from flask_cors import CORS
-from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_flask_exporter import ConnexionPrometheusMetrics
 
 from my_config.logging_config import LOGGING_CONFIG
 from db.database import db_session, init_db
@@ -30,7 +30,7 @@ logging.config.dictConfig(LOGGING_CONFIG)
 CORS(app)
 
 # Set Prometheus Client
-metrics = PrometheusMetrics(app)
+metrics = ConnexionPrometheusMetrics(connex_app)
 
 # Register DB session cleanup
 @app.teardown_appcontext
