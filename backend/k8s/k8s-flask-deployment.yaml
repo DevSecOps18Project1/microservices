@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: yakinew/inventory-app:1.0.1
+          image: yakinew/inventory-app:latest
           ports:
             - containerPort: 8085
           env:
