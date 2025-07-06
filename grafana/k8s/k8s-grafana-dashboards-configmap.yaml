@@ -1,0 +1,187 @@
+# Grafana ConfigMap for Flask dashboard
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-config
+  namespace: default
+data:
+  dashboard.yml: |
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      updateIntervalSeconds: 10
+      allowUiUpdates: true
+      options:
+        path: /var/lib/grafana/dashboards
+  flask-dashboard.json: |
+    {
+      "id": null,
+      "title": "Flask Application Metrics",
+      "tags": ["flask", "python"],
+      "timezone": "browser",
+      "editable": true,
+      "schemaVersion": 27,
+      "version": 1,
+      "panels": [
+        {
+          "id": 1,
+          "title": "HTTP Request Rate",
+          "type": "stat",
+          "targets": [
+            {
+              "expr": "rate(flask_http_request_total[5m])",
+              "legendFormat": "{{method}} {{status}}",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            }
+          }
+        },
+        {
+          "id": 2,
+          "title": "HTTP Request Duration (95th percentile)",
+          "type": "stat",
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.95, rate(flask_http_request_duration_seconds_bucket[5m]))",
+              "legendFormat": "95th percentile",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s"
+            }
+          }
+        },
+        {
+          "id": 3,
+          "title": "HTTP Requests by Status Code",
+          "type": "timeseries",
+          "targets": [
+            {
+              "expr": "rate(flask_http_request_total[5m])",
+              "legendFormat": "{{status}} - {{method}}",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8},
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            }
+          }
+        },
+        {
+          "id": 4,
+          "title": "Request Duration Histogram",
+          "type": "timeseries",
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.50, rate(flask_http_request_duration_seconds_bucket[5m]))",
+              "legendFormat": "50th percentile",
+              "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.90, rate(flask_http_request_duration_seconds_bucket[5m]))",
+              "legendFormat": "90th percentile",
+              "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.99, rate(flask_http_request_duration_seconds_bucket[5m]))",
+              "legendFormat": "99th percentile",
+              "refId": "C"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s"
+            }
+          }
+        },
+        {
+          "id": 5,
+          "title": "HTTP Exceptions",
+          "type": "timeseries",
+          "targets": [
+            {
+              "expr": "rate(flask_http_request_exceptions_total[5m])",
+              "legendFormat": "Exceptions",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            }
+          }
+        },
+        {
+          "id": 6,
+          "title": "Total Requests",
+          "type": "stat",
+          "targets": [
+            {
+              "expr": "flask_http_request_total",
+              "legendFormat": "Total Requests",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 6, "w": 8, "x": 0, "y": 24},
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short"
+            }
+          }
+        },
+        {
+          "id": 7,
+          "title": "Average Request Duration",
+          "type": "stat",
+          "targets": [
+            {
+              "expr": "rate(flask_http_request_duration_seconds_sum[5m]) / rate(flask_http_request_duration_seconds_count[5m])",
+              "legendFormat": "Avg Duration",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 6, "w": 8, "x": 8, "y": 24},
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s"
+            }
+          }
+        },
+        {
+          "id": 8,
+          "title": "Request Rate",
+          "type": "stat",
+          "targets": [
+            {
+              "expr": "rate(flask_http_request_total[5m])",
+              "legendFormat": "Requests/sec",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 6, "w": 8, "x": 16, "y": 24},
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            }
+          }
+        }
+      ],
+      "time": {"from": "now-1h", "to": "now"},
+      "refresh": "5s"
+    }
