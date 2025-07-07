@@ -5,7 +5,8 @@ import logging
 from connexion import NoContent
 import exceptions
 from controllers import tools
-from models.product import Product  # Import the new Product model
+from models.product import Product
+from models.restock_log import RestockLog
 
 LOG = logging.getLogger(__name__)
 
@@ -82,6 +83,10 @@ def product_update(product_id: int, body: dict):
 @tools.expected_errors(404)
 def product_delete(product_id: int):
     """Delete a product from the inventory."""
+    restock_logs = RestockLog.get_by_product_id(product_id)
+    for restock_log in restock_logs:
+        restock_log.delete()
+
     product = _get_product_by_id(product_id)
     product.delete()
     LOG.info('Product %s was deleted successfully!', product.id)
