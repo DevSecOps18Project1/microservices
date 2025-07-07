@@ -4,11 +4,11 @@ SQLAlchemy model for RestockLog entity
 import logging
 from datetime import datetime
 from sqlalchemy import Column, Integer, Text, DateTime, ForeignKey
-# Assuming db_session from database.py as per user's model_base.py
 from db.database import Base
 from models.model_base import BaseModel
 
 LOG = logging.getLogger(__name__)
+
 
 class RestockLog(BaseModel, Base):
     """RestockLog model."""
@@ -36,3 +36,8 @@ class RestockLog(BaseModel, Base):
             'reason': self.reason,
             'restocked_at': self.restocked_at.isoformat() if self.restocked_at else None
         }
+
+    @classmethod
+    def get_by_product_id(cls, id_: int):
+        restock_log = cls.query.filter(cls.product_id == id_).all()  # pylint: disable=E1101
+        return restock_log
