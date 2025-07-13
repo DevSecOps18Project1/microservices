@@ -52,15 +52,15 @@ spec:
                 configMapKeyRef:
                   name: db-config
                   key: POSTGRES_DB
-          # readinessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: 8085
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 10
-          # livenessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: 8085
-          #   initialDelaySeconds: 15
-          #   periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8085
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8085
+            initialDelaySeconds: 15
+            periodSeconds: 20
