@@ -4,11 +4,11 @@
 The script `test_inventory_app.py` has 17 tests. Test #2 requires empty database. Use the flag `--db-empty` to run test 2.
 To run the test, use the following syntax:
 ```commandline
-./test_inventory_api.py --base-url <BASE_URL> [--db-empty]
+pytest test_inventory_app.py --base-url <BASE_URL> [--db-empty]
 ```
 For example:
 ```commandline
-./test_inventory_api.py --base-url http://localhost:8085 --db-empty
+pytest test_inventory_app.py --base-url http://localhost:8085 --db-empty
 ```
 
 # Test Container
