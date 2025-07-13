@@ -21,4 +21,4 @@ data:
       - job_name: 'flask-app'
         scheme: http
         static_configs:
-          - targets: ['flask-app-service']
+          - targets: ['flask-app-service:8085']
