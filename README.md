@@ -48,3 +48,8 @@ To see all the valid API endpoint, you can use the swagger doc (`/ui/`). For exa
 
 To deploy the microservices using Argo CD, please follow the instruction
 here: https://github.com/DevSecOps18Project1/DevOps/tree/main/argocd
+
+### Microservice List
+* Backend
+* PostgreSQL Database
+
