@@ -11,6 +11,7 @@ from prometheus_flask_exporter import ConnexionPrometheusMetrics
 
 from my_config.logging_config import LOGGING_CONFIG
 from db.database import db_session, init_db
+from controllers.general import redirect_blueprint
 
 # Create Connexion application instance
 connex_app = connexion.FlaskApp(__name__, specification_dir='./')
@@ -18,6 +19,8 @@ connex_app = connexion.FlaskApp(__name__, specification_dir='./')
 # Add API definition
 connex_app.add_api('./inventory.yaml', name='inventory', validate_responses=True, pythonic_params=True)
 # connex_app.add_api('./user-service.yaml', name='users', validate_responses=True, pythonic_params=True)
+
+connex_app.app.register_blueprint(redirect_blueprint)
 
 # Get Flask application instance
 app = connex_app.app
@@ -31,6 +34,7 @@ CORS(app)
 
 # Set Prometheus Client
 metrics = ConnexionPrometheusMetrics(connex_app)
+
 
 # Register DB session cleanup
 @app.teardown_appcontext
