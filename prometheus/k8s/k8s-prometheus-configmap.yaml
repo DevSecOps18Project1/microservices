@@ -17,6 +17,12 @@ data:
         static_configs:
           - targets: ['localhost:9090']
 
+      # Kubernetes node exporter
+      - job_name: 'kubernetes-node-exporter'
+        scheme: http
+        static_configs:
+          - targets: ['node-exporter.kube-system:9100']
+
       # Flask application
       - job_name: 'flask-app'
         scheme: http
