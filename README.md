@@ -52,4 +52,3 @@ here: https://github.com/DevSecOps18Project1/DevOps/tree/main/argocd
 ### Microservice List
 * Backend
 * PostgreSQL Database
-
