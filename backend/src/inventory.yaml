@@ -1,7 +1,7 @@
 openapi: 3.0.4
 info:
   title: Inventory Service API
-  description: API for managing product inventory, restocking, and analytics.
+  description: API for managing product inventory, restocking, and analytics. Hi!
   contact:
     email: yakinew@yahoo.com
   license:
